@@ -2,7 +2,15 @@
 
 jQuery ->
 
+    # A contact model is defined by:
+    # first_name:  String. The contact's first name.
+    # second_name: String. The contact's last name.
     class Contact extends Backbone.Model
+        # Defines the default values for a contact.
+        defaults: {
+            first_name: 'Jhon'
+            last_name: 'Doe'
+        }
         urlRoot: '/contacts/'
 
     class Contacts extends Backbone.Collection
@@ -12,10 +20,3 @@ jQuery ->
     # Makes the model and the collection globals
     window.Contacts = Contacts
     window.Contact = Contact
-
-    # c = new Contacts()
-    # c.fetch
-    #     success: ->
-    #         console.log c.models
-    #         for contact in c.models
-    #             $('div#contacts').append("<p> #{ contact.get('first_name') } #{ contact.get('last_name')} </p>")

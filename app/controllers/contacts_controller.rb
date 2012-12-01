@@ -10,7 +10,7 @@ class ContactsController < ApplicationController
   end
 
   def create
-    respond_with Contact.new(params[:contact])
+    respond_with Contact.create(params[:contact]) 
   end
 
   def update
@@ -18,6 +18,6 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    repsond_with Contact.destroy(params[:id])
+    respond_with Contact.destroy(params[:id])
   end
 end

@@ -23,6 +23,6 @@ class PhonesController < ApplicationController
 
   def destroy
     @contact = Contact.find(params[:contact_id])
-    repsond_with @contact.phone.destroy(params[:id])
+    respond_with @contact.phones.destroy(params[:id])
   end
 end
