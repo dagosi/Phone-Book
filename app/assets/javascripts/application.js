@@ -14,5 +14,4 @@
 //= require jquery_ujs
 //= require libs/underscore-min
 //= require libs/backbone-min
-
 //= require_tree .
