@@ -9,10 +9,16 @@ jQuery ->
     class Phone extends Backbone.Model
         NUMBER_TYPES: ['Work', 'Home', 'Cellular', 'Other']
 
+        initialize: (contact_id) ->
+            if @get('contact_id')
+                @urlRoot = "/contacts/#{ @get('contact_id') }/phones/"
+            else if contact_id
+                @urlRoot = "/contacts/#{ contact_id }/phones/"
+
     # Phones collection.
     class Phones extends Backbone.Collection
         initialize: (contact_id) ->
-            @url = "/contacts/#{ contact_id }/phones/"
+            @url = "/contacts/#{ contact_id }/phones.json"
 
         model: Phone
 

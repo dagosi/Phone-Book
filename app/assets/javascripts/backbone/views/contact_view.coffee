@@ -44,8 +44,7 @@ jQuery ->
                 success: (contact_model) ->
                     self.collection.add(contact_model)
                     self.appendContact(contact_model)
-                    $('input#first_name_input').val('')
-                    $('input#last_name_input').val('')
+                    self.clean_form()
 
         # Updates a contact.
         update_contact: ->
@@ -68,17 +67,17 @@ jQuery ->
             contact_to_update.save {},
                 success: ->
                     $('.update_contact_toggle').toggle()
-                    self.clean_update_form()
+                    self.clean_form()
 
-        # Cleans the update form.
-        clean_update_form: ->
+        # Cleans the contact form.
+        clean_form: ->
             $('div#contacts_form input').val("")
 
         # Method which executed when the user clicks the cancel button for
         # and update.
         cancel_contact_update: ->
             $('.update_contact_toggle').toggle()
-            @clean_update_form()
+            @clean_form()
 
         # Appends a contact to the view.
         appendContact: (contact) ->
@@ -109,7 +108,7 @@ jQuery ->
             template = _.template($("#contact_template").html(), contact_information)
             $(@el).append(template)
 
-            @creates_phones_view()
+            @create_phones_view()
             return @
 
         fill_contact_information_for_update: ->
@@ -127,7 +126,7 @@ jQuery ->
             $('.update_contact_toggle').toggle()
 
             # Adds a title with the contact's name who is updating.
-            $('h3#updating_title').text("Updating #{ full_name }")
+            $('h3#updating_contact_title').text("Updating #{ full_name }")
 
         # Deletes a contact.
         delete_contact: ->
@@ -136,7 +135,7 @@ jQuery ->
                 success: ->
                     $(self.el).remove()
 
-        creates_phones_view: ->
+        create_phones_view: ->
             # Creates a phones view.
             phonesView = new PhonesView(@model.get('id'))
             $(@el).append(phonesView.render().el)

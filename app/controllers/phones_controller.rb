@@ -13,7 +13,8 @@ class PhonesController < ApplicationController
 
   def create
     @contact = Contact.find(params[:contact_id])
-    respond_with @contact.phones.bulild(params[:phone])
+    @phone = @contact.phones.create(params[:phone])
+    respond_with [@contact, @phone]
   end
 
   def update
