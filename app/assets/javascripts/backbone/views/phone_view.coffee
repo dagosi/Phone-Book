@@ -12,7 +12,10 @@ jQuery ->
             @collection = new Phones(@contact_id)
 
         render: ->
-            template = _.template($('#phone_form_template').html())
+            form_variables = {
+                id: 3
+            }
+            template = _.template($("#phone_form_template").html(), form_variables)
             $(@el).append(template)
             @fetch_phones()
             return @
@@ -47,6 +50,24 @@ jQuery ->
                     self.collection.add(phone_model)
                     self.appendPhone(phone_model)
 
+        fill_phone_information_for_update: ->
+            # Gets model values.
+            number = @model.get('number')
+            number_type = @model.get('number_type')
+            full_info = number + " " + number_type
+
+            # Sets models values to the form
+            $('input#number_input').val(number)
+            $('input#number_type_input').val(number_type)
+            $('input#phone_id').val(@model.get('id'))
+
+            # Hide/show necessary fields for the update.
+            $('.update_phone_toggle').toggle()
+
+            # Adds a title with the contact's name who is updating.
+            $('h3#updating_phone_title').text("Updating #{ full_info }")
+
+
         # Cleans the phone form.
         clean_form: ->
             $('div#phones_form input').val("")
@@ -68,6 +89,7 @@ jQuery ->
 
         events:
             'click button.delete_phone': 'delete_phone'
+            'click button.update_phone': 'fill_phone_information_for_update'
 
         render: ->
             # Gets the phone information from the model.
@@ -81,23 +103,6 @@ jQuery ->
             $(@el).append(template)
 
             return @
-
-        fill_contact_information_for_update: ->
-            # Gets model values.
-            number = @model.get('number')
-            number_type = @model.get('number_type')
-            full_info = number + " " + number_type
-
-            # Sets models values to the form
-            $('input#number_input').val(number)
-            $('input#number_type').val(number_type)
-            $('input#phone_id').val(@model.get('id'))
-
-            # Hide/show necessary fields for the update.
-            $('.update_phone_toggle').toggle()
-
-            # Adds a title with the contact's name who is updating.
-            $('h3#updating_phone_title').text("Updating #{ full_info }")
 
         # Deletes a phone entry
         delete_phone: ->
