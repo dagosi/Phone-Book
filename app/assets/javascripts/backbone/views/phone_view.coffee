@@ -7,6 +7,7 @@ jQuery ->
         events:
             'click button#create_phone': 'create_phone'
             'click button#update_phone': 'update_phone'
+            'click button#cancel_phone_update': 'cancel_phone_update'
 
         initialize: (contact_id) ->
             @contact_id = contact_id
@@ -81,6 +82,11 @@ jQuery ->
                     $('.update_phone_toggle').toggle()
                     self.clean_form()
 
+        # Method which is executed when the user clicks the cancel button for
+        # and update.
+        cancel_phone_update: ->
+            $('.update_phone_toggle').toggle()
+            @clean_form()
 
         # Cleans the phone form.
         clean_form: ->
