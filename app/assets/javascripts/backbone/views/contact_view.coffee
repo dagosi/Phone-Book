@@ -73,7 +73,7 @@ jQuery ->
         clean_form: ->
             $('div#contacts_form input').val("")
 
-        # Method which executed when the user clicks the cancel button for
+        # Method which is executed when the user clicks the cancel button for
         # and update.
         cancel_contact_update: ->
             $('.update_contact_toggle').toggle()

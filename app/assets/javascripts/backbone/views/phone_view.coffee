@@ -6,6 +6,7 @@ jQuery ->
 
         events:
             'click button#create_phone': 'create_phone'
+            'click button#update_phone': 'update_phone'
 
         initialize: (contact_id) ->
             @contact_id = contact_id
@@ -50,6 +51,36 @@ jQuery ->
                     self.collection.add(phone_model)
                     self.appendPhone(phone_model)
 
+        # Updates a phone.
+        update_phone: ->
+
+            # Catches the information of the form.
+            number = $('input#number_input', phones_div).val()
+            number_type = $('input#number_type_input', phones_div).val()
+            phone_id = $('input#phone_id', phones_div).val()
+
+            # Searchs the phone in the collection.
+            phone_to_update = @collection.get(phone_id)
+
+            # Gets phones for each contact div.
+            phones_div =
+                $("div#contact_#{ phone_to_update.get('contact_id')}_phones")
+
+            # Sets the new information.
+            phone_to_update.set {
+                number: number
+                number_type: number_type
+            }
+
+            console.log phone_to_update
+
+            # Updates the phone.
+            self = @
+            phone_to_update.save {},
+                success: ->
+                    $('.update_phone_toggle').toggle()
+                    self.clean_form()
+
 
         # Cleans the phone form.
         clean_form: ->
@@ -93,8 +124,10 @@ jQuery ->
             number_type = @model.get('number_type')
             full_info = number + " " + number_type
 
-            # Sets models values to the form
+            # Gets phones div.
             phones_div = $("div#contact_#{ @model.get('contact_id')}_phones")
+
+            # Sets models values to the form.
             $("input#number_input", phones_div).val(number)
             $("input#number_type_input", phones_div).val(number_type)
             $("input#phone_id", phones_div).val(@model.get('id'))
@@ -102,8 +135,10 @@ jQuery ->
             # Hide/show necessary fields for the update.
             $('.update_phone_toggle').toggle()
 
-            # Adds a title with the contact's name who is updating.
-            $('h3#updating_phone_title', phones_div).text("Updating #{ full_info }")
+            # Adds a title with the contact's name who is updating to
+            # the phones' view.
+            $('h3#updating_phone_title', phones_div)
+                .text("Updating #{ full_info }")
 
 
         # Deletes a phone entry
