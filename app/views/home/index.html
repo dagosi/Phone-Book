@@ -13,8 +13,10 @@
 </script>
 
 <script type="text/template" id="phone_form_template">
-  <ul></ul>
-  <h2>New Phone</h2>
+  <div id="contact_<%%= id %>_phones">
+    <ul></ul>
+
+    <h2>New Phone</h2>
     <div id="phones_form">
       <h3 id="updating_phone_title" class="update_phone_toggle" style="display: none;"></h3>
       <label>Number:</label>
@@ -29,6 +31,7 @@
       <button id="update_phone" class="update_phone_toggle" style="display: none;">Update</button>
       <button id="cancel_phone_update" class="update_phone_toggle" style="display: none;">Cancel</button>
     </div>
+  </div>
 </script>
 
 

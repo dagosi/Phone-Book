@@ -13,7 +13,7 @@ jQuery ->
 
         render: ->
             form_variables = {
-                id: 3
+                id: @contact_id
             }
             template = _.template($("#phone_form_template").html(), form_variables)
             $(@el).append(template)
@@ -49,23 +49,6 @@ jQuery ->
                 success: (phone_model) ->
                     self.collection.add(phone_model)
                     self.appendPhone(phone_model)
-
-        fill_phone_information_for_update: ->
-            # Gets model values.
-            number = @model.get('number')
-            number_type = @model.get('number_type')
-            full_info = number + " " + number_type
-
-            # Sets models values to the form
-            $('input#number_input').val(number)
-            $('input#number_type_input').val(number_type)
-            $('input#phone_id').val(@model.get('id'))
-
-            # Hide/show necessary fields for the update.
-            $('.update_phone_toggle').toggle()
-
-            # Adds a title with the contact's name who is updating.
-            $('h3#updating_phone_title').text("Updating #{ full_info }")
 
 
         # Cleans the phone form.
@@ -103,6 +86,25 @@ jQuery ->
             $(@el).append(template)
 
             return @
+
+        fill_phone_information_for_update: ->
+            # Gets model values.
+            number = @model.get('number')
+            number_type = @model.get('number_type')
+            full_info = number + " " + number_type
+
+            # Sets models values to the form
+            phones_div = $("div#contact_#{ @model.get('contact_id')}_phones")
+            $("input#number_input", phones_div).val(number)
+            $("input#number_type_input", phones_div).val(number_type)
+            $("input#phone_id", phones_div).val(@model.get('id'))
+
+            # Hide/show necessary fields for the update.
+            $('.update_phone_toggle').toggle()
+
+            # Adds a title with the contact's name who is updating.
+            $('h3#updating_phone_title', phones_div).text("Updating #{ full_info }")
+
 
         # Deletes a phone entry
         delete_phone: ->

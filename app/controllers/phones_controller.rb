@@ -8,7 +8,8 @@ class PhonesController < ApplicationController
 
   def show
     @contact = Contact.find(params[:contact_id])
-    respond_with @contact.phones.find(params[:id])
+    @phone = @contact.phones.find(params[:id])
+    respond_with [@contact, @phone]
   end
 
   def create

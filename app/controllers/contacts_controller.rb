@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Contact.all
+    respond_with Contact.all(order: :last_name)
   end
 
   def show
