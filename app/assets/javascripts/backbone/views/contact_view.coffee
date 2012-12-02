@@ -26,7 +26,7 @@ jQuery ->
                         self.appendContact(contact)
 
         # Creates a contact.
-        create_contact: ->
+        create_contact:  ->
             # Catches the information of the form.
             first_name = $('input#first_name_input').val()
             last_name = $('input#last_name_input').val()

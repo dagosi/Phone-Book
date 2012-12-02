@@ -51,6 +51,7 @@ jQuery ->
                 success: (phone_model) ->
                     self.collection.add(phone_model)
                     self.appendPhone(phone_model)
+                    self.clean_form()
 
         # Updates a phone.
         update_phone: ->
