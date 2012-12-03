@@ -1,7 +1,7 @@
 jQuery ->
 
     class ContactsView extends Backbone.View
-        el: $('div#contacts')
+        el: $('div#content')
 
         events:
             'click button#create_contact': 'create_contact'
@@ -17,6 +17,9 @@ jQuery ->
 
         # Fetch the contacts' information from the API.
         fetch_contacts: ->
+            # Cleans the view.
+            $("div#contacts", @el).html("")
+
             # Saves the objects to be accesible inside the fetch.
             self = @
             @collection.fetch
@@ -33,7 +36,7 @@ jQuery ->
             }
 
             # Appends the contact view to the contacts' view.
-            $(@el).append(contactView.render().el)
+            $('div#contacts', @el).append(contactView.render().el)
 
 
         # Creates a contact.
@@ -54,7 +57,7 @@ jQuery ->
             contact.save {},
                 success: (contact_model) ->
                     self.collection.add(contact_model)
-                    self.appendContact(contact_model)
+                    self.fetch_contacts()
                     self.clean_form()
 
         # Updates a contact.

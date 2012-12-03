@@ -73,22 +73,28 @@
 <h2>Your Phone Book</h2>
 
 <div class="accordion" id="accordion2">
-  <div id="contacts"></div>
+  <div id="content">
+    <div id="contacts">
+    </div>
+    
+    <hr />
+    <h2>New Contact</h2>
+    <div id="contacts_form">
+      <h3 id="updating_contact_title" class="update_contact_toggle" style="display: none;"></h3>
+  
+      <label>First Name:</label>
+      <input id="first_name_input" type="text" /><br />
+
+      <label>Last Name:</label>
+      <input id="last_name_input" type="text"></input>
+
+      <input id="contact_id" type="hidden" value=""></input><br /><br />
+
+      <button id="create_contact" class="update_contact_toggle btn btn-primary">Create</button>
+      <button id="update_contact" class="update_contact_toggle" style="display: none;">Update</button>
+      <button id="cancel_contact_update" class="update_contact_toggle" style="display: none;">Cancel</button>
+    </div>
+
+  </div>
 </div>
 
-<h2>New Contact</h2>
-  <div id="contacts_form">
-    <h3 id="updating_contact_title" class="update_contact_toggle" style="display: none;"></h3>
-    <label>First Name:</label>
-    <input id="first_name_input" type="text" />
-    <br />
-    <label>Last Name:</label>
-    <input id="last_name_input" type="text"></input>
-
-    <input id="contact_id" type="hidden" value=""></input>
-    <br />
-    <br />
-    <button id="create_contact" class="update_contact_toggle">Create</button>
-    <button id="update_contact" class="update_contact_toggle" style="display: none;">Update</button>
-    <button id="cancel_contact_update" class="update_contact_toggle" style="display: none;">Cancel</button>
-  </div>
