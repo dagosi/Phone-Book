@@ -18,25 +18,28 @@ jQuery ->
         # Fetch the contacts' information from the API.
         fetch_contacts: ->
             # Cleans the view.
-            $("div#contacts", @el).html("")
+            #$("div#contacts", @el).html("")
 
             # Saves the objects to be accesible inside the fetch.
             self = @
             @collection.fetch
                 success: ->
-                    # Iterates over the retrieved info.
-                    for contact in self.collection.models
-                        self.appendContact(contact)
+                    self.appendContacts(self.collection.models)
 
-        # Appends a contact to the view.
-        appendContact: (contact) ->
-            # Creates a contact view.
-            contactView = new ContactView {
-                model: contact
-            }
+        # Appends all the fetched contacts to the view.
+        appendContacts: (contacts) ->
 
-            # Appends the contact view to the contacts' view.
-            $('div#contacts', @el).append(contactView.render().el)
+            contactViews = []
+            for contact in contacts
+                # Creates a contact view.
+                contactView = new ContactView {
+                    model: contact
+                }
+                # Adds the HTML contact view to the list.
+                contactViews.push(contactView.render().el)
+
+            # Renders the contacts.
+            $('div#contacts', @el).html(contactViews)
 
 
         # Creates a contact.
