@@ -156,6 +156,7 @@ jQuery ->
         create_phones_view: ->
             # Creates a phones view.
             phonesView = new PhonesView(@model.get('id'))
+            $('div#phones', @el).append(phonesView.render().el)
 
     # Main view creation.
     new ContactsView()
