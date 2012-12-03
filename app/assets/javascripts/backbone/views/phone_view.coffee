@@ -45,6 +45,15 @@ jQuery ->
             # Appends the phone view to the phones' view.
             $('tbody', @el).html(phoneViews)
 
+        # Appends a single phone to the contact.
+        appendPhone: (phone) ->
+            # Creates a phone view.
+            phoneView = new PhoneView {
+                model: phone
+            }
+
+            # Appends the phone view to the phones' view.
+            $('tbody', @el).append(phoneView.render().el)
 
         # Creates a phone entry.
         create_phone: ->
@@ -102,7 +111,7 @@ jQuery ->
         # and update.
         cancel_phone_update: ->
             phones_div = $("div#collapse_contact_#{ @contact_id }")
-            $('.update_phone_toggle', phones_div).toggle()
+            $('button.update_phone_toggle', phones_div).toggle()
             $('button.update_phone').removeAttr('disabled')
             $('button.delete_phone').removeAttr('disabled')
             $('button.update_contact').removeAttr('disabled')
@@ -112,6 +121,8 @@ jQuery ->
 
         # Cleans the phone form.
         clean_form: ->
+            $('button.update_contact').removeAttr('disabled')
+            $('button.delete_contact').removeAttr('disabled')
             $('div.phones_form input').val("")
             $('h2#updating_phone_title').text("New Phone")
 
