@@ -108,6 +108,11 @@ jQuery ->
             'click button.update_contact': 'fill_contact_information_for_update'
 
         render: ->
+            @render_contact_template()
+            @create_phones_view()
+            return @
+
+        render_contact_template: ->
             # Gets the contact information from the model.
             contact_information = {
                 first_name: @model.get('first_name')
@@ -118,9 +123,6 @@ jQuery ->
             # Compiles a template adding the contact information.
             template = _.template($("#contact_template").html(), contact_information)
             $(@el).append(template)
-
-            @create_phones_view()
-            return @
 
         fill_contact_information_for_update: ->
             # Gets model values.
@@ -149,7 +151,7 @@ jQuery ->
             @model.destroy
                 success: ->
                     $(self.el).fadeOut ->
-                        $(self.el).remove()
+                        @remove()
 
         create_phones_view: ->
             # Creates a phones view.

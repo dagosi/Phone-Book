@@ -1,16 +1,22 @@
 jQuery ->
 
     class PhonesView extends Backbone.View
-        events:
-            'click button#create_phone': 'create_phone'
-            'click button#update_phone': 'update_phone'
-            'click button#cancel_phone_update': 'cancel_phone_update'
+
 
         initialize: (contact_id) ->
             @contact_id = contact_id
             @el = "div#contact_#{ @contact_id }_phones"
+            @create_events()
             @collection = new Phones(@contact_id)
             @render()
+
+        create_events: ->
+            @events = {
+                'click button#show_phone_form': 'create_popover'
+                'click button#create_phone': 'create_phone'
+                'click button#update_phone': 'update_phone'
+                'click button#cancel_phone_update': 'cancel_phone_update'
+            }
 
         render: ->
             # Fetch the phones for this contact.
@@ -22,16 +28,15 @@ jQuery ->
                     for phone in self.collection.models
                         self.appendPhone(phone)
 
-                    # Renders the form to create a new phone.
-                    #self.render_phone_form()
+                    self.create_popover()
 
-        render_phone_form: ->
+        compile_phone_form: ->
             form_variables = {
                 id: @contact_id
             }
 
             template = _.template($("#phone_form_template").html(), form_variables)
-            $("div#contact_#{ @contact_id }_phones").append(template)
+            return template
 
 
         # Appends a phone object to the view.
@@ -107,6 +112,16 @@ jQuery ->
             $('div#phones_form input').val("")
 
 
+        create_popover: ->
+            self = @
+            $("div#collapse_contact_#{ @contact_id }").popover {
+                html: true,
+                title: '<h2>New Phone</h2>'
+                placement: 'right'
+                content: ->
+                    self.compile_phone_form()
+            }
+
 
     class PhoneView extends Backbone.View
         tagName: 'tr'
@@ -155,7 +170,8 @@ jQuery ->
             self = @
             @model.destroy
                 success: ->
-                    $(self.el).remove()
+                    $(self.el).fadeOut ->
+                        @remove()
 
 
     # Adds phones' view the the global variables.
