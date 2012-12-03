@@ -1,12 +1,28 @@
 <script type="text/template" id="contact_template">
-  <%%= first_name %>
-  <%%= last_name %>
-  <button class="delete_contact">Delete</button>
-  <button class="update_contact update_contact_toggle">Update</button>
-
-  <div id="contact_<%%= id %>_phones">
-    <ul id="phones_list"></ul>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <div id="left">
+	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_contact_<%%= id %>">
+	  <%%= first_name %>
+	  <%%= last_name %>
+	</a>
+      </div>
+      <div id="right">
+	<button class="actions delete_contact">Delete</button>
+	<button class="actions update_contact update_contact_toggle">Update</button>
+      </div>
+    </div>
+    <div id="collapse_contact_<%%= id %>" class="accordion-body collapse out">
+      <div class="accordion-inner">
+	<div id="contact_<%%= id %>_phones">
+	  <ul id="phones_list"></ul>
+	</div>
+      </div>
+    </div>
   </div>
+   <!-- <div id="contact_<%%= id %>_phones"> -->
+   <!--   <ul id="phones_list"></ul> -->
+   <!-- </div> -->
 </script>
 
 <script type="text/template" id="phone_template">
@@ -59,23 +75,5 @@
 <h2>Your Phone Book</h2>
 
 <div class="accordion" id="accordion2">
-  <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        Collapsible Group Item #1
-      </a>
-    </div>
-    <div id="collapseOne" class="accordion-body collapse out">
-      <div class="accordion-inner">
-        Anim pariatur cliche...
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="contacts_content">
-  <div id="contacts">
-    <ul id="contacts_list">
-    </ul>
-  </div>
+  <div id="contacts"></div>
 </div>

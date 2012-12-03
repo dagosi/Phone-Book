@@ -1,7 +1,7 @@
 jQuery ->
 
     class ContactsView extends Backbone.View
-        el: $('div#contacts_content')
+        el: $('div#contacts')
 
         events:
             'click button#create_contact': 'create_contact'
@@ -24,6 +24,17 @@ jQuery ->
                     # Iterates over the retrieved info.
                     for contact in self.collection.models
                         self.appendContact(contact)
+
+        # Appends a contact to the view.
+        appendContact: (contact) ->
+            # Creates a contact view.
+            contactView = new ContactView {
+                model: contact
+            }
+
+            # Appends the contact view to the contacts' view.
+            $(@el).append(contactView.render().el)
+
 
         # Creates a contact.
         create_contact:  ->
@@ -79,19 +90,8 @@ jQuery ->
             $('.update_contact_toggle').toggle()
             @clean_form()
 
-        # Appends a contact to the view.
-        appendContact: (contact) ->
-            # Creates a contact view.
-            contactView = new ContactView {
-                model: contact
-            }
-
-            # Appends the contact view to the contacts' view.
-            $('ul#contacts_list', @el).append(contactView.render().el)
-
 
     class ContactView extends Backbone.View
-        tagName: 'li'
 
         events:
             'click button.delete_contact': 'delete_contact'
