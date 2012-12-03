@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require libs/underscore-min
 //= require libs/backbone-min
 //= require_tree .
