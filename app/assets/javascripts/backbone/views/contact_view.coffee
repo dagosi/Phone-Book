@@ -137,7 +137,8 @@ jQuery ->
             self = @
             @model.destroy
                 success: ->
-                    $(self.el).remove()
+                    $(self.el).fadeOut ->
+                        $(self.el).remove()
 
         create_phones_view: ->
             # Creates a phones view.
