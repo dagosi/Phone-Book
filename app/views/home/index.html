@@ -9,8 +9,12 @@
       </div>
       <div class="actions">
 	<div class="btn-group" >
-	  <button class="delete_contact btn btn-small btn-danger" type="button">Delete</button>
-	  <button class="update_contact update_contact_toggle btn btn-small btn-success">Update</button>
+	  <button class="update_contact update_contact_toggle btn btn-small btn-success">
+	    Update
+	  </button>
+	  <button class="delete_contact btn btn-small btn-danger" type="button">
+	    Delete
+	  </button>
 	</div>
       </div>
     </div>
@@ -20,9 +24,9 @@
 	  <table class="table table-striped table-bordered">
 	    <thead>
 	      <tr>
-		<th>Number</th>
-		<th>Type</th>
-		<th>Actions</th>
+		<th class="phones">Number</th>
+		<th class="phones">Type</th>
+		<th class="phones">Actions</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -37,29 +41,12 @@
 <script type="text/template" id="phone_template">
   <td><%%= number %></td>
   <td><%%= number_type %></td>
-  <td>
-    <button class="delete_phone">Delete</button>
-    <button class="update_phone update_phone_toggle">Update</button>  
+  <td class="actions">
+    <div class="btn-group">
+      <button class="update_phone update_phone_toggle update_contact_toggle btn btn-small btn-success">Update</button>  
+      <button class="delete_phone btn btn-small btn-danger">Delete</button>
+    </div>
   </td>
-</script>
-
-<script type="text/tamplate" id="contact_form_template">
-  <h2>New Contact</h2>
-  <div id="contacts_form">
-    <h3 id="updating_contact_title" class="update_contact_toggle" style="display: none;"></h3>
-    <label>First Name:</label>
-    <input id="first_name_input" type="text" />
-    <br />
-    <label>Last Name:</label>
-    <input id="last_name_input" type="text"></input>
-
-    <input id="contact_id" type="hidden" value=""></input>
-    <br />
-    <br />
-    <button id="create_contact" class="update_contact_toggle">Create</button>
-    <button id="update_contact" class="update_contact_toggle" style="display: none;">Update</button>
-    <button id="cancel_contact_update" class="update_contact_toggle" style="display: none;">Cancel</button>
-  </div>
 </script>
 
 <script type="text/template" id="phone_form_template">
@@ -88,3 +75,20 @@
 <div class="accordion" id="accordion2">
   <div id="contacts"></div>
 </div>
+
+<h2>New Contact</h2>
+  <div id="contacts_form">
+    <h3 id="updating_contact_title" class="update_contact_toggle" style="display: none;"></h3>
+    <label>First Name:</label>
+    <input id="first_name_input" type="text" />
+    <br />
+    <label>Last Name:</label>
+    <input id="last_name_input" type="text"></input>
+
+    <input id="contact_id" type="hidden" value=""></input>
+    <br />
+    <br />
+    <button id="create_contact" class="update_contact_toggle">Create</button>
+    <button id="update_contact" class="update_contact_toggle" style="display: none;">Update</button>
+    <button id="cancel_contact_update" class="update_contact_toggle" style="display: none;">Cancel</button>
+  </div>
