@@ -2,17 +2,17 @@
   <div class="accordion-group">
     <div class="accordion-heading">
       <div>
-	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_contact_<%%= id %>">
+	<a class="accordion-toggle" data-toggle="collapse" href="#collapse_contact_<%%= id %>">
 	  <%%= first_name %>
 	  <%%= last_name %>
 	</a>
       </div>
       <div class="actions">
 	<div class="btn-group" >
-	  <button class="update_contact update_contact_toggle btn btn-small btn-success">
+	  <button class="update_contact btn btn-small btn-success">
 	    Update
 	  </button>
-	  <button class="delete_contact btn btn-small btn-danger" type="button">
+	  <button class="delete_contact btn btn-small btn-danger">
 	    Delete
 	  </button>
 	</div>
@@ -43,7 +43,7 @@
   <td><%%= number_type %></td>
   <td class="actions">
     <div class="btn-group">
-      <button class="update_phone update_phone_toggle update_contact_toggle btn btn-small btn-success">Update</button>  
+      <button class="update_phone update_phone_toggle btn btn-small btn-success">Update</button>  
       <button class="delete_phone btn btn-small btn-danger">Delete</button>
     </div>
   </td>
@@ -61,7 +61,7 @@
       <input id="phone_id" type="hidden" value=""></input>
       <br />
       <br />
-      <button id="create_phone" class="update_phone_toggle">Create</button>
+      <button id="create_phone" class="update_phone_toggle ">Create</button>
       <button id="update_phone" class="update_phone_toggle" style="display: none;">Update</button>
       <button id="cancel_phone_update" class="update_phone_toggle" style="display: none;">Cancel</button>
     </div>
@@ -78,10 +78,8 @@
     </div>
     
     <hr />
-    <h2>New Contact</h2>
+    <h2 id="form_title">New Contact</h2>
     <div id="contacts_form">
-      <h3 id="updating_contact_title" class="update_contact_toggle" style="display: none;"></h3>
-  
       <label>First Name:</label>
       <input id="first_name_input" type="text" /><br />
 
@@ -91,8 +89,8 @@
       <input id="contact_id" type="hidden" value=""></input><br /><br />
 
       <button id="create_contact" class="update_contact_toggle btn btn-primary">Create</button>
-      <button id="update_contact" class="update_contact_toggle" style="display: none;">Update</button>
-      <button id="cancel_contact_update" class="update_contact_toggle" style="display: none;">Cancel</button>
+      <button id="update_contact" class="update_contact_toggle btn btn-small btn-success" style="display: none;">Update</button>
+      <button id="cancel_contact_update" class="update_contact_toggle btn btn-small" style="display: none;">Cancel</button>
     </div>
 
   </div>

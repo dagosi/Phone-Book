@@ -17,9 +17,6 @@ jQuery ->
 
         # Fetch the contacts' information from the API.
         fetch_contacts: ->
-            # Cleans the view.
-            #$("div#contacts", @el).html("")
-
             # Saves the objects to be accesible inside the fetch.
             self = @
             @collection.fetch
@@ -85,15 +82,22 @@ jQuery ->
                 success: ->
                     $('.update_contact_toggle').toggle()
                     self.clean_form()
+                    self.fetch_contacts()
 
         # Cleans the contact form.
         clean_form: ->
             $('div#contacts_form input').val("")
+            $('h2#form_title').text("New Contact")
 
         # Method which is executed when the user clicks the cancel button for
-        # and update.
+        # a contact update.
         cancel_contact_update: ->
             $('.update_contact_toggle').toggle()
+            $('button.update_contact').removeAttr('disabled')
+            $('button.delete_contact').removeAttr('disabled')
+            $('button.update_phone').removeAttr('disabled')
+            $('button.delete_phone').removeAttr('disabled')
+            $('h2#form_title').text("New Contact")
             @clean_form()
 
 
@@ -129,11 +133,15 @@ jQuery ->
             $('input#last_name_input').val(last_name)
             $('input#contact_id').val(@model.get('id'))
 
-            # Hide/show necessary fields for the update.
-            $('.update_contact_toggle').toggle()
+            # Disable/enable necessary fields for the update.
+            $('button.update_contact_toggle').toggle()
+            $('button.update_contact').attr('disabled', '')
+            $('button.delete_contact').attr('disabled', '')
+            $('button.update_phone').attr('disabled', '')
+            $('button.delete_phone').attr('disabled', '')
 
-            # Adds a title with the contact's name who is updating.
-            $('h3#updating_contact_title').text("Updating #{ full_name }")
+            # Changes form title.
+            $('h2#form_title').text("Editing #{ full_name }")
 
         # Deletes a contact.
         delete_contact: ->
