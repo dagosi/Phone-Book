@@ -41,10 +41,8 @@ jQuery ->
                 model: phone
             }
 
-
-
             # Appends the phone view to the phones' view.
-            $('ul', @el).append(phoneView.render().el)
+            $('table tbody', @el).append(phoneView.render().el)
 
 
         # Creates a phone entry.
@@ -111,8 +109,7 @@ jQuery ->
 
 
     class PhoneView extends Backbone.View
-        tagName: 'li'
-
+        tagName: 'tr'
         events:
             'click button.delete_phone': 'delete_phone'
             'click button.update_phone': 'fill_phone_information_for_update'

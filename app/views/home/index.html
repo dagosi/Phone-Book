@@ -17,21 +17,30 @@
     <div id="collapse_contact_<%%= id %>" class="accordion-body collapse out">
       <div class="accordion-inner">
 	<div id="contact_<%%= id %>_phones">
-	  <ul id="phones_list"></ul>
+	  <table class="table table-striped table-bordered">
+	    <thead>
+	      <tr>
+		<th>Number</th>
+		<th>Type</th>
+		<th>Actions</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    </tbody>
+	  </table>
 	</div>
       </div>
     </div>
   </div>
-   <!-- <div id="contact_<%%= id %>_phones"> -->
-   <!--   <ul id="phones_list"></ul> -->
-   <!-- </div> -->
 </script>
 
 <script type="text/template" id="phone_template">
-  <%%= number %>
-  <%%= number_type %>
-  <button class="delete_phone">Delete</button>
-  <button class="update_phone update_phone_toggle">Update</button>  
+  <td><%%= number %></td>
+  <td><%%= number_type %></td>
+  <td>
+    <button class="delete_phone">Delete</button>
+    <button class="update_phone update_phone_toggle">Update</button>  
+  </td>
 </script>
 
 <script type="text/tamplate" id="contact_form_template">
