@@ -87,7 +87,7 @@ jQuery ->
             }
 
             # Appends the contact view to the contacts' view.
-            $('ul#contacts', @el).append(contactView.render().el)
+            $('ul#contacts_list', @el).append(contactView.render().el)
 
 
     class ContactView extends Backbone.View
@@ -102,6 +102,7 @@ jQuery ->
             contact_information = {
                 first_name: @model.get('first_name')
                 last_name: @model.get('last_name')
+                id: @model.get('id')
             }
 
             # Compiles a template adding the contact information.
@@ -138,7 +139,6 @@ jQuery ->
         create_phones_view: ->
             # Creates a phones view.
             phonesView = new PhonesView(@model.get('id'))
-            $(@el).append(phonesView.render().el)
 
     # Main view creation.
     new ContactsView()

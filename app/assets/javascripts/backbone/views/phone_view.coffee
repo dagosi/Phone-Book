@@ -1,9 +1,6 @@
 jQuery ->
 
     class PhonesView extends Backbone.View
-        tagName: 'div'
-        className: 'phones'
-
         events:
             'click button#create_phone': 'create_phone'
             'click button#update_phone': 'update_phone'
@@ -11,19 +8,12 @@ jQuery ->
 
         initialize: (contact_id) ->
             @contact_id = contact_id
+            @el = "div#contact_#{ @contact_id }_phones"
             @collection = new Phones(@contact_id)
+            @render()
 
         render: ->
-            form_variables = {
-                id: @contact_id
-            }
-            template = _.template($("#phone_form_template").html(), form_variables)
-            $(@el).append(template)
-            @fetch_phones()
-            return @
-
-        # Fetch the phones' information from the API.
-        fetch_phones: ->
+            # Fetch the phones for this contact.
             # Saves the objects to be accesible inside the fetch.
             self = @
             @collection.fetch
@@ -31,6 +21,31 @@ jQuery ->
                     # Iterates over the retrieved info.
                     for phone in self.collection.models
                         self.appendPhone(phone)
+
+                    # Renders the form to create a new phone.
+                    #self.render_phone_form()
+
+        render_phone_form: ->
+            form_variables = {
+                id: @contact_id
+            }
+
+            template = _.template($("#phone_form_template").html(), form_variables)
+            $("div#contact_#{ @contact_id }_phones").append(template)
+
+
+        # Appends a phone object to the view.
+        appendPhone: (phone) ->
+            # Creates a phone view.
+            phoneView = new PhoneView {
+                model: phone
+            }
+
+
+
+            # Appends the phone view to the phones' view.
+            $('ul', @el).append(phoneView.render().el)
+
 
         # Creates a phone entry.
         create_phone: ->
@@ -93,16 +108,6 @@ jQuery ->
         clean_form: ->
             $('div#phones_form input').val("")
 
-
-        # Appends a phone object to the view.
-        appendPhone: (phone) ->
-            # Creates a phone view.
-            phoneView = new PhoneView {
-                model: phone
-            }
-
-            # Appends the phone view to the phones' view.
-            $('ul', @el).append(phoneView.render().el)
 
 
     class PhoneView extends Backbone.View
