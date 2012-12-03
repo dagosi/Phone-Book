@@ -1,15 +1,17 @@
 <script type="text/template" id="contact_template">
   <div class="accordion-group">
     <div class="accordion-heading">
-      <div id="left">
+      <div>
 	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse_contact_<%%= id %>">
 	  <%%= first_name %>
 	  <%%= last_name %>
 	</a>
       </div>
-      <div id="right">
-	<button class="actions delete_contact">Delete</button>
-	<button class="actions update_contact update_contact_toggle">Update</button>
+      <div class="actions">
+	<div class="btn-group" >
+	  <button class="delete_contact btn btn-small btn-danger" type="button">Delete</button>
+	  <button class="update_contact update_contact_toggle btn btn-small btn-success">Update</button>
+	</div>
       </div>
     </div>
     <div id="collapse_contact_<%%= id %>" class="accordion-body collapse out">
