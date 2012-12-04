@@ -3,8 +3,8 @@
 jQuery ->
 
     # A phone model is defined by:
-    # number:      String. A phone number
-    # number_type: String. Defines the type of the phone number
+    # number:      String. A phone number(obligatory).
+    # number_type: String. Defines the type of the phone number(obligatory)
     #              (Work, Home, Cellular, or Other)
     class Phone extends Backbone.Model
         # Defines the validations for this model.
@@ -16,6 +16,10 @@ jQuery ->
                 return 'Number type is required.'
 
         initialize: (contact_id) ->
+            # Creates the url for each phone.
+            # If the model is created by the user (a new phone),
+            # then the 'contact_id' is taken from the model (the first case).
+            # Otherwise, the creation of the view gives the 'contact_id'.
             if @get('contact_id')
                 @urlRoot = "/contacts/#{ @get('contact_id') }/phones/"
             else if contact_id

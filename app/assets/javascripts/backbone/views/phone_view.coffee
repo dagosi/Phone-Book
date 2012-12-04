@@ -197,7 +197,5 @@ jQuery ->
                         msg = "The phone was deleted successfully."
                         Helper.show_message(Constant.SUCCESS, msg, Constant.PHONE)
 
-
-
     # Adds phones' view the the global variables.
     window.PhonesView = PhonesView
