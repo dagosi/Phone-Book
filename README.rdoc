@@ -2,6 +2,25 @@
 
 See me runing at: http://real-time-phonebook.herokuapp.com/
 
-This phone book stores contacts and numbers in a real-time environment. Hence, you can add, delete, and update contacts with other people at the same time without reloading the page.
+This phone book stores several phone numbers for a specific contact in a real-time environment. Hence, you can create, delete, and update contacts with other people at the same time without reloading the page.
 
-The client side was developed in Backbone with CoffeeScript, and the server is runing in Rails(of course).
+== Technologies used.
+
+The client side was developed in [Backbone](http://http://backbonejs.org// and [CoffeeScript](http://coffeescript.org/). The server is runing in [Rails](http://rubyonrails.org/); this has the API structure which is called from Backbone to do CRUD on the data (the data is stored in PostgreSQL). The view was developed with [Twitter-Bootstrap](http://twitter.github.com/bootstrap/), and the real-time feature was developed using [Pusher](http://pusher.com/)
+
+== How to use.
+
+If you want to see the project running, all you have to do is go to http://real-time-phonebook.herokuapp.com/ and check all the features of this awesome phone book.
+
+If you want to run it in your on environment:
+
+1. Clone the project.
+2. Install RoR in your environment.
+3. Open a terminal. Go to the project and run $ bundle install (I recommend to have RVM first).
+4. Run rake db:migrate after bundle ends the installation process.
+5. Add the global variable environment for Pusher. Ask me for it. These are:
+   * PUSHER_ID
+   * PUSHER_KEY
+   * PUSHER_SECRET
+6. Finally, run the server. $ rails s
+7. Go to localhost:3000 and enjoy.
