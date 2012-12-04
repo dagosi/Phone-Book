@@ -20,7 +20,17 @@ jQuery ->
             phones_table = _.template($('#phones_table_template').html())
             $(@el).append(phones_table)
             @create_number_type_options()
+            @pusher_event()
             return @
+
+        # Creates the pusher listener. When a phone is deleted, created, or udpated,
+        # this listener is executed.
+        pusher_event: ->
+            self = @
+            phone_channel.bind('change', (data) ->
+                self.fetch_phones()
+            )
+
 
         fetch_phones: ->
             # Fetch the phones for this contact.

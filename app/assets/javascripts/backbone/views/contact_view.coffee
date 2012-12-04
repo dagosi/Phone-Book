@@ -21,7 +21,7 @@ jQuery ->
         # this listener is executed.
         pusher_event: ->
             self = @
-            channel.bind('change', (data) ->
+            contact_channel.bind('change', (data) ->
                 self.fetch_contacts()
             )
 
@@ -172,7 +172,9 @@ jQuery ->
 
     # Initializes Pusher and its channel.
     pusher = new Pusher('dd485dd170fb48eb43c0')
-    channel = pusher.subscribe('contact-channel');
+    contact_channel = pusher.subscribe('contact-channel');
+
+    window.phone_channel = pusher.subscribe('phone-channel');
 
 
     # Main view creation.
