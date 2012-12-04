@@ -8,7 +8,6 @@ jQuery ->
             }
 
             div_messages = "div##{ model_name }_messages"
-            console.log div_messages
             template = _.template($('#messages_template').html(), variables)
             $(div_messages).html(template)
 
