@@ -58,11 +58,11 @@ jQuery ->
             # Sets contact's new information.
             contact = new Contact()
 
-
             contact.set {
                 first_name: first_name
                 last_name: last_name
             }
+
 
             self = @
             contact.on 'error', (contact_model, error) ->
