@@ -9,6 +9,10 @@ jQuery ->
             'click button#cancel_contact_update': 'cancel_contact_update'
 
         initialize: ->
+            # Defines constants for validation messages.
+            @SUCCESS = 'success'
+            @ERROR = 'error'
+
             @collection = new Contacts()
             @pusher_event()
             @render()
@@ -57,10 +61,16 @@ jQuery ->
 
             # Sets contact's new information.
             contact = new Contact()
+
+
             contact.set {
                 first_name: first_name
                 last_name: last_name
             }
+
+            self = @
+            contact.on @ERROR, (contact_model, error) ->
+                self.show_message(self.ERROR, error)
 
             # Creates the contact.
             self = @
@@ -69,6 +79,20 @@ jQuery ->
                     self.collection.add(contact_model)
                     self.fetch_contacts()
                     self.clean_form()
+                    msg = "The contact was created successfully."
+                    self.show_message(self.SUCCESS, msg)
+                    #$('div.alert').remove()
+
+        # Shows an error in the view.
+        show_message: (msg_type, msg) ->
+            variables = {
+                    message: msg
+                    msg_type: msg_type
+            }
+
+            div_messages = 'div#messages'
+            template = _.template($('#messages_template').html(), variables)
+            $(div_messages).html(template)
 
         # Updates a contact.
         update_contact: ->
@@ -160,7 +184,6 @@ jQuery ->
             self = @
             @model.destroy
                 success: ->
-                    console.log(self.el)
                     $(self.el).fadeOut ->
                         $(self.el).remove()
 

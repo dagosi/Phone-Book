@@ -6,11 +6,11 @@ jQuery ->
     # first_name:  String. The contact's first name.
     # second_name: String. The contact's last name.
     class Contact extends Backbone.Model
-        # Defines the default values for a contact.
-        defaults: {
-            first_name: 'Jhon'
-            last_name: 'Doe'
-        }
+        # Defines the validations for this model.
+        validate: (attrs) ->
+            if not attrs.first_name
+                return 'First name is required.'
+
         urlRoot: '/contacts/'
 
     class Contacts extends Backbone.Collection

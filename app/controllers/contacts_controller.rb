@@ -1,8 +1,3 @@
-require 'pusher'
-
-Pusher.app_id = ENV['PUSHER_ID']
-Pusher.key = ENV['PUSHER_KEY']
-Pusher.secret = ENV['PUSHER_SECRET']
 
 class ContactsController < ApplicationController
   respond_to :json
