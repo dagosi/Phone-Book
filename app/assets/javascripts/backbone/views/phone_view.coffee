@@ -67,6 +67,10 @@ jQuery ->
                 number_type: number_type
             }
 
+            self = @
+            phone.on 'error', (phone_model, error) ->
+                Helper.show_message(Constant.ERROR, error, Constant.PHONE)
+
             # Creates the phone entry.
             self = @
             phone.save {},
@@ -74,6 +78,9 @@ jQuery ->
                     self.collection.add(phone_model)
                     self.fetch_phones()
                     self.clean_form()
+                    msg = "The phone was created successfully."
+                    Helper.show_message(Constant.SUCCESS, msg, Constant.PHONE)
+
 
         # Updates a phone.
         update_phone: ->
@@ -103,6 +110,9 @@ jQuery ->
                     $('.update_phone_toggle').toggle()
                     self.clean_form()
                     self.fetch_phones()
+                    msg = "The phone was updated successfully."
+                    Helper.show_message(Constant.SUCCESS, msg, Constant.PHONE)
+
 
         # Method which is executed when the user clicks the cancel button for
         # and update.
@@ -184,6 +194,9 @@ jQuery ->
                 success: ->
                     $(self.el).fadeOut ->
                         $(self.el).remove()
+                        msg = "The phone was deleted successfully."
+                        Helper.show_message(Constant.SUCCESS, msg, Constant.PHONE)
+
 
 
     # Adds phones' view the the global variables.

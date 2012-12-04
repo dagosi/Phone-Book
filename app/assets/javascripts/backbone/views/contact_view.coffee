@@ -9,10 +9,6 @@ jQuery ->
             'click button#cancel_contact_update': 'cancel_contact_update'
 
         initialize: ->
-            # Defines constants for validation messages.
-            @SUCCESS = 'success'
-            @ERROR = 'error'
-
             @collection = new Contacts()
             @pusher_event()
             @render()
@@ -69,8 +65,8 @@ jQuery ->
             }
 
             self = @
-            contact.on @ERROR, (contact_model, error) ->
-                self.show_message(self.ERROR, error)
+            contact.on 'error', (contact_model, error) ->
+                Helper.show_message(Constant.ERROR, error, Constant.CONTACT)
 
             # Creates the contact.
             self = @
@@ -80,19 +76,8 @@ jQuery ->
                     self.fetch_contacts()
                     self.clean_form()
                     msg = "The contact was created successfully."
-                    self.show_message(self.SUCCESS, msg)
-                    #$('div.alert').remove()
+                    Helper.show_message(Constant.SUCCESS, msg, Constant.CONTACT)
 
-        # Shows an error in the view.
-        show_message: (msg_type, msg) ->
-            variables = {
-                    message: msg
-                    msg_type: msg_type
-            }
-
-            div_messages = 'div#messages'
-            template = _.template($('#messages_template').html(), variables)
-            $(div_messages).html(template)
 
         # Updates a contact.
         update_contact: ->
@@ -110,6 +95,7 @@ jQuery ->
                 last_name: last_name
             }
 
+
             # Updates the contact.
             self = @
             contact_to_update.save {},
@@ -117,6 +103,8 @@ jQuery ->
                     $('.update_contact_toggle').toggle()
                     self.clean_form()
                     self.fetch_contacts()
+                    msg = "The contact was updated successfully."
+                    Helper.show_message(Constant.SUCCESS, msg, Constant.CONTACT)
 
         # Cleans the contact form.
         clean_form: ->
@@ -186,6 +174,9 @@ jQuery ->
                 success: ->
                     $(self.el).fadeOut ->
                         $(self.el).remove()
+                        msg = "The contact was deleted successfully."
+                        Helper.show_message(Constant.SUCCESS, msg, Constant.CONTACT)
+
 
         # Creates the phones view.
         create_phones_view: ->
