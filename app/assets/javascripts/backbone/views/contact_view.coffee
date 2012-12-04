@@ -10,10 +10,20 @@ jQuery ->
 
         initialize: ->
             @collection = new Contacts()
+            @pusher_event()
             @render()
+
 
         render: ->
             @fetch_contacts()
+
+        # Creates the pusher listener. When a contact is deleted, created, or udpated,
+        # this listener is executed.
+        pusher_event: ->
+            self = @
+            channel.bind('change', (data) ->
+                self.fetch_contacts()
+            )
 
         # Fetch the contacts' information from the API.
         fetch_contacts: ->
@@ -150,13 +160,21 @@ jQuery ->
             self = @
             @model.destroy
                 success: ->
+                    console.log(self.el)
                     $(self.el).fadeOut ->
-                        @remove()
+                        $(self.el).remove()
 
+        # Creates the phones view.
         create_phones_view: ->
             # Creates a phones view.
             phonesView = new PhonesView(@model.get('id'))
             $('div#phones', @el).append(phonesView.render().el)
 
+    # Initializes Pusher and its channel.
+    pusher = new Pusher('dd485dd170fb48eb43c0')
+    channel = pusher.subscribe('contact-channel');
+
+
     # Main view creation.
     new ContactsView()
+
