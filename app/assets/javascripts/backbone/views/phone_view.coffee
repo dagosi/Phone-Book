@@ -19,11 +19,10 @@ jQuery ->
             # Renders the table tamplate for the phones.
             phones_table = _.template($('#phones_table_template').html())
             $(@el).append(phones_table)
+            @create_number_type_options()
             return @
 
         fetch_phones: ->
-            self = @
-
             # Fetch the phones for this contact.
             # Saves the objects to be accesible inside the fetch.
             self = @
@@ -45,21 +44,11 @@ jQuery ->
             # Appends the phone view to the phones' view.
             $('tbody', @el).html(phoneViews)
 
-        # Appends a single phone to the contact.
-        appendPhone: (phone) ->
-            # Creates a phone view.
-            phoneView = new PhoneView {
-                model: phone
-            }
-
-            # Appends the phone view to the phones' view.
-            $('tbody', @el).append(phoneView.render().el)
-
         # Creates a phone entry.
         create_phone: ->
             # Catches the information of the form.
             number = $('input#number_input', @el).val()
-            number_type = $('input#number_type_input', @el).val()
+            number_type = $('select#number_type_select', @el).val()
 
             # Sets phone's new information.
             phone = new Phone(@contact_id)
@@ -73,7 +62,7 @@ jQuery ->
             phone.save {},
                 success: (phone_model) ->
                     self.collection.add(phone_model)
-                    self.appendPhone(phone_model)
+                    self.fetch_phones()
                     self.clean_form()
 
         # Updates a phone.
@@ -81,7 +70,7 @@ jQuery ->
 
             # Catches the information of the form.
             number = $('input#number_input', phones_div).val()
-            number_type = $('input#number_type_input', phones_div).val()
+            number_type = $('select#number_type_select', phones_div).val()
             phone_id = $('input#phone_id', phones_div).val()
 
             # Searchs the phone in the collection.
@@ -96,8 +85,6 @@ jQuery ->
                 number: number
                 number_type: number_type
             }
-
-            console.log phone_to_update
 
             # Updates the phone.
             self = @
@@ -126,16 +113,13 @@ jQuery ->
             $('div.phones_form input').val("")
             $('h2#updating_phone_title').text("New Phone")
 
-        # # Shows a popover when the user wants to create a phone entry.
-        # create_popover: ->
-        #     self = @
-        #     $("#collapse_contact_#{ @contact_id }").popover {
-        #         html: true,
-        #         title: '<h2>New Phone</h2>'
-        #         placement: 'right'
-        #         content: ->
-        #             self.compile_phone_form()
-        #     }
+        create_number_type_options: ->
+            NUMBER_TYPES = ['Work', 'Home', 'Cellular', 'Other']
+
+            for type in NUMBER_TYPES
+                option = "<option>#{ type }</option>"
+                $('select#number_type_select', @el).append(option)
+
 
     class PhoneView extends Backbone.View
         tagName: 'tr'
@@ -154,8 +138,8 @@ jQuery ->
             # Compiles a template adding the phone information.
             template = _.template($("#phone_template").html(), phone_information)
             $(@el).append(template)
-
             return @
+
 
         fill_phone_information_for_update: ->
             # Gets model values.
@@ -165,7 +149,7 @@ jQuery ->
 
             # Gets phones div.
             phones_div = $("div#collapse_contact_#{ @model.get('contact_id')}")
-            console.log phones_div
+
             # Sets models values to the form.
             $("input#number_input", phones_div).val(number)
             $("input#number_type_input", phones_div).val(number_type)
