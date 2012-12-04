@@ -6,7 +6,7 @@ This phone book stores several phone numbers for a specific contact in a real-ti
 
 == Technologies used.
 
-The client side was developed in [Backbone]: http://http://backbonejs.org// and [CoffeeScript](http://coffeescript.org/). The server is runing in [Rails](http://rubyonrails.org/); this has the API structure which is called from Backbone to do CRUD on the data (the data is stored in PostgreSQL). The view was developed with [Twitter-Bootstrap](http://twitter.github.com/bootstrap/), and the real-time feature was developed using [Pusher](http://pusher.com/)
+The client side was developed in Backbone and CoffeeScript. The server is runing in Rails; this has the API structure which is called from Backbone to do CRUD on the data (the data is stored in PostgreSQL). The view was developed with Twitter-Bootstrap, and the real-time feature was developed using Pusher (http://pusher.com/)
 
 == How to use.
 
